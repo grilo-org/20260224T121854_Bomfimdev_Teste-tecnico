@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="hero">
+    <h1>Sistema de Gerenciamento de Cupons</h1>
+    <p class="subtitle">Crie, visualize e gerencie cupons de desconto</p>
+  </div>
+
+  <div class="actions-card">
+    <div class="action-section">
+      <h2>Criar Novo Cupom</h2>
+      <p>Crie um novo cupom de desconto com código personalizado</p>
+      <button class="btn btn-primary btn-large" (click)="createCoupon()">
+        <span class="icon">+</span> Criar Cupom
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="action-section">
+      <h2>Buscar Cupom</h2>
+      <p>Digite o ID do cupom (UUID)</p>
+      <div class="search-form">
+        <input
+          type="text"
+          [(ngModel)]="searchId"
+          placeholder="Digite o ID (UUID) do cupom"
+          class="search-input"
+          (keyup.enter)="searchCoupon()"
+        />
+        <button 
+          class="btn btn-secondary btn-large" 
+          (click)="searchCoupon()"
+          [disabled]="!searchId.trim()"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>Funcionalidades</h3>
+    <ul class="features-list">
+      <li>✓ Criar cupons com código alfanumérico de 6 caracteres</li>
+      <li>✓ Definir valor de desconto (mínimo 0.5)</li>
+      <li>✓ Configurar data de expiração</li>
+      <li>✓ Publicar cupons imediatamente ou posteriormente</li>
+      <li>✓ Visualizar detalhes completos do cupom</li>
+      <li>✓ Deletar cupons (soft delete)</li>
+    </ul>
+  </div>
+</div>

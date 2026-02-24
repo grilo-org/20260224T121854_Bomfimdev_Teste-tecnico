@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="detail-card">
+    <div class="header">
+      <h2>Detalhes do Cupom</h2>
+      <button class="btn btn-secondary" routerLink="/">
+        Voltar
+      </button>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+      Carregando...
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage && !loading">
+      {{ errorMessage }}
+    </div>
+
+    <div class="coupon-info" *ngIf="coupon && !loading">
+      <div class="info-row">
+        <div class="info-label">ID:</div>
+        <div class="info-value">{{ coupon.id }}</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Código:</div>
+        <div class="info-value code">{{ coupon.code }}</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Descrição:</div>
+        <div class="info-value">{{ coupon.description }}</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Valor do Desconto:</div>
+        <div class="info-value discount">{{ coupon.discountValue }}</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Data de Expiração:</div>
+        <div class="info-value">{{ formatDate(coupon.expirationDate) }}</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Status:</div>
+        <div class="info-value">
+          <span class="status-badge" [ngClass]="getStatusClass(coupon.status)">
+            {{ getStatusLabel(coupon.status) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Publicado:</div>
+        <div class="info-value">
+          <span class="badge" [class.badge-yes]="coupon.published" [class.badge-no]="!coupon.published">
+            {{ coupon.published ? 'Sim' : 'Não' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Resgatado:</div>
+        <div class="info-value">
+          <span class="badge" [class.badge-yes]="coupon.redeemed" [class.badge-no]="!coupon.redeemed">
+            {{ coupon.redeemed ? 'Sim' : 'Não' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="actions" *ngIf="coupon.status !== 'DELETED'">
+        <button 
+          class="btn btn-danger" 
+          (click)="confirmDelete()"
+          [disabled]="deleting"
+        >
+          {{ deleting ? 'Deletando...' : 'Deletar Cupom' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="modal" *ngIf="showDeleteConfirm">
+      <div class="modal-content">
+        <h3>Confirmar Exclusão</h3>
+        <p>Tem certeza que deseja deletar este cupom?</p>
+        <p class="warning">Esta ação não pode ser desfeita.</p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" (click)="cancelDelete()">
+            Cancelar
+          </button>
+          <button class="btn btn-danger" (click)="deleteCoupon()">
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

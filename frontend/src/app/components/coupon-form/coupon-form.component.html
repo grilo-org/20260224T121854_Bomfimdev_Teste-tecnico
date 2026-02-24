@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="form-card">
+    <h2>Criar Novo Cupom</h2>
+    
+    <div class="alert alert-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #couponForm="ngForm">
+      <div class="form-group">
+        <label for="code">Código *</label>
+        <input
+          type="text"
+          id="code"
+          name="code"
+          [(ngModel)]="coupon.code"
+          required
+          maxlength="10"
+          placeholder="Ex: ABC-123"
+          class="form-control"
+        />
+        <small class="form-text">Deve ter 6 caracteres alfanuméricos (caracteres especiais serão removidos)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição *</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="coupon.description"
+          required
+          rows="4"
+          placeholder="Descreva o cupom..."
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="discountValue">Valor do Desconto *</label>
+        <input
+          type="number"
+          id="discountValue"
+          name="discountValue"
+          [(ngModel)]="coupon.discountValue"
+          required
+          min="0.5"
+          step="0.1"
+          class="form-control"
+        />
+        <small class="form-text">Valor mínimo: 0.5</small>
+      </div>
+
+      <div class="form-group">
+        <label for="expirationDate">Data de Expiração *</label>
+        <input
+          type="date"
+          id="expirationDate"
+          name="expirationDate"
+          [(ngModel)]="coupon.expirationDate"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input
+            type="checkbox"
+            name="published"
+            [(ngModel)]="coupon.published"
+          />
+          Publicar imediatamente
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" routerLink="/">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-primary" 
+          [disabled]="!couponForm.form.valid || loading"
+        >
+          {{ loading ? 'Criando...' : 'Criar Cupom' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

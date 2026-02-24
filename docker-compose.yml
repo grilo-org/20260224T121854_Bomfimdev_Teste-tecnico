@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    container_name: coupon-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+
+  frontend:
+    build: ./frontend
+    container_name: coupon-web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
